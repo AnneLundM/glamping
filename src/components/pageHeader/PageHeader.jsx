@@ -1,9 +1,11 @@
 import styles from "./pageHeader.module.css";
+import logo from "/logo.png";
 
 const PageHeader = () => {
   return (
     <header className={styles.header}>
-      <h1>Titel</h1>
+      <img src={logo} alt='logo' />
+      <h1>Gittes Glamping</h1>
     </header>
   );
 };
