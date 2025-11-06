@@ -1,3 +1,10 @@
 .review {
   background-color: #829b97;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 20px 0;
+
+  h4 {
+    font-size: 30px;
+  }
 }

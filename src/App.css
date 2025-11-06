@@ -15,6 +15,7 @@
 
 body {
   font-family: "Nanum Gothic", sans-serif;
+  color: white;
 }
 
 h1,
@@ -22,7 +23,7 @@ h2,
 h3,
 h4 {
   font-family: "Zen Loop", cursive;
-  color: white;
+  font-weight: 200;
 }
 
 #root {
