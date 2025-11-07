@@ -1,16 +1,25 @@
 .header {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 50px;
   background-image: url("../../assets/image_00.jpg");
   background-position: center;
-  background-color: rgba(0, 0, 0, 0.634);
-  background-blend-mode: hue;
-  height: 50vh;
-  justify-content: center;
+  background-color: rgb(94, 94, 94);
+  background-size: cover;
+  background-blend-mode: soft-light;
+  min-height: 60vh;
   align-items: center;
+  padding: 50px 0;
 
   img {
     width: 72px;
+  }
+
+  h1 {
+    font-size: 64px;
+    span {
+      font-size: 96px;
+      display: block;
+    }
   }
 }

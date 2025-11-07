@@ -2,13 +2,12 @@
 import styles from "./review.module.css";
 
 // Review er en child-komponent, som får data (props) fra forældre-komponenten
-
-const Review = ({ title, name, description }) => {
+const Review = ({ review }) => {
   return (
     <article className={styles.review}>
-      <h4>{name}</h4>
-      <h4>{title}</h4>
-      <p>{description}</p>
+      <h4>{review.name}</h4>
+      <h4>{review.title}</h4>
+      <p>{review.description}</p>
     </article>
   );
 };
