@@ -1,7 +1,9 @@
+import PageHeader from "../components/pageHeader/PageHeader";
+
 const Stays = () => {
   return (
     <article>
-      <h1>Ophold</h1>
+      <PageHeader titleOne='Vores ophold' />
     </article>
   );
 };
