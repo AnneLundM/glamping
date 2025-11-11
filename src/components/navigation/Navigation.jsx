@@ -1,12 +1,18 @@
+import { NavLink } from "react-router";
 import styles from "./navigation.module.css";
 
 const Navigation = () => {
   return (
-    <navigation className={styles.navigation}>
+    <nav className={styles.navigation}>
       <ul>
-        <li>Forside</li>
+        <li>
+          <NavLink to='/'>Forside</NavLink>
+        </li>
+        <li>
+          <NavLink to='/stays'>Ophold</NavLink>
+        </li>
       </ul>
-    </navigation>
+    </nav>
   );
 };
 

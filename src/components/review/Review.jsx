@@ -5,10 +5,13 @@ import styles from "./review.module.css";
 const Review = ({ review }) => {
   return (
     <article className={styles.review}>
-      <h4>
-        {review.name}, {review.age}
-      </h4>
-      <h4>{review.stay}</h4>
+      <header>
+        <h4>
+          {review.name}, {review.age}
+        </h4>
+        <h4>{review.stay}</h4>
+      </header>
+
       <p>{review.review}</p>
     </article>
   );

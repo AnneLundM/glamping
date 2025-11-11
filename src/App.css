@@ -23,7 +23,8 @@ html {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5 {
   font-family: "Zen Loop", cursive;
   font-weight: 200;
   line-height: 60px;

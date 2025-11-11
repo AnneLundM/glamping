@@ -17,7 +17,7 @@ const Reviews = () => {
     }
   };
 
-  // Indbygget hook fra React der sørger for, at funktionen kun køre én gang når komponenten renderes.
+  // Indbygget hook fra React der sørger for, at funktionen kun køre én gang når komponenten renderes/mountes.
   // Medmindre der tilføjes en afhængighed.
   useEffect(() => {
     fetchReviews();
