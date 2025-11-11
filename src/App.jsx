@@ -7,19 +7,18 @@ import Footer from "./components/footer/Footer";
 
 // Parent/forældre komponent - Den 'hoved'-komponent der styrer visninger af andre komponenter
 function App() {
-  /* Hook fra React der gør det muligt at navigere imellem siderne. Ruterne (path) bestemmer, 
-  hvilke komponenter der skal vises baseret på URL-stien */
+  /* Vha react-router definerer vi hvilke komponenter der hører til hvilke paths */
   const routes = useRoutes([
     { path: "/", element: <Home /> },
     { path: "/stays", element: <Stays /> },
   ]);
 
   return (
-    <>
+    <div className='app'>
       <Navigation />
-      {routes}
+      <main>{routes}</main>
       <Footer />
-    </>
+    </div>
   );
 }
 

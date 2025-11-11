@@ -13,11 +13,16 @@ const PageHeader = ({ logo, titleOne, titleTwo, button }) => {
 
   return (
     <header className={styles.header}>
+      {/* Hvis logo er true, skal <img/> vises/renderes. Hvis den er false (eller undefined eller null) skal den ikke. */}
       {logo && <img src={logo} alt='logo' />}
 
       <h1>
         {titleOne} <span>{titleTwo}</span>
       </h1>
+
+      {/* Følgende er en betinget rendering (conditional rendering).
+      Hvis button er true, skal <Button/>-komponenten renderes*/}
+
       {/* Vi sender 3 props videre med komponenten: Én til teksten, én til funktionen og én til dens style  */}
 
       {button && (
