@@ -24,11 +24,11 @@ const Reviews = () => {
   }, []);
 
   return (
-    <div className='container'>
-      {reviews.map((review, index) => (
-        <Review review={review} key={index} />
+    <section className='container'>
+      {reviews.map((review) => (
+        <Review review={review} key={review._id} />
       ))}
-    </div>
+    </section>
   );
 };
 
