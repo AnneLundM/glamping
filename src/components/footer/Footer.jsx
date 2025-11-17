@@ -1,5 +1,6 @@
 import styles from "./footer.module.css";
 import logo from "/logo.png";
+import { RiFacebookBoxLine } from "react-icons/ri";
 
 const Footer = () => {
   return (
@@ -7,6 +8,7 @@ const Footer = () => {
       <div className={styles.soMe}></div>
       <div>
         <img src={logo} alt='logo' />
+        <RiFacebookBoxLine size={30} color='#ced3cd' />
         <h5>Gittes Glamping</h5>
       </div>
     </footer>

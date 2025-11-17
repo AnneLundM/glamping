@@ -4,6 +4,9 @@ import Home from "./pages/Home";
 import Stays from "./pages/Stays";
 import Navigation from "./components/navigation/Navigation";
 import Footer from "./components/footer/Footer";
+import Contact from "./pages/Contact";
+import { ToastContainer } from "react-toastify";
+import Activities from "./pages/Activities";
 
 // Parent/forældre komponent - Den 'hoved'-komponent der styrer visninger af andre komponenter
 function App() {
@@ -11,6 +14,8 @@ function App() {
   const routes = useRoutes([
     { path: "/", element: <Home /> },
     { path: "/stays", element: <Stays /> },
+    { path: "/contact", element: <Contact /> },
+    { path: "/activities", element: <Activities /> },
   ]);
 
   return (
@@ -18,6 +23,7 @@ function App() {
       <Navigation />
       <main>{routes}</main>
       <Footer />
+      <ToastContainer autoClose={3000} />
     </div>
   );
 }
