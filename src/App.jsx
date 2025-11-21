@@ -7,6 +7,7 @@ import Footer from "./components/footer/Footer";
 import Contact from "./pages/Contact";
 import { ToastContainer } from "react-toastify";
 import Activities from "./pages/Activities";
+import MyList from "./pages/MyList";
 
 // Parent/forældre komponent - Den 'hoved'-komponent der styrer visninger af andre komponenter
 function App() {
@@ -16,6 +17,7 @@ function App() {
     { path: "/stays", element: <Stays /> },
     { path: "/contact", element: <Contact /> },
     { path: "/activities", element: <Activities /> },
+    { path: "/mylist", element: <MyList /> },
   ]);
 
   return (

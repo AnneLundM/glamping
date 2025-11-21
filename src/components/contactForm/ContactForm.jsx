@@ -4,6 +4,7 @@ import Button from "../button/Button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ContactForm = () => {
   // Yup valideringsskema - her definerer vi reglerne hvad brugeren skal udfylde
@@ -35,10 +36,16 @@ const ContactForm = () => {
         }
       );
 
+      console.log(data);
+
       if (!response.ok) {
-        throw new Error("Serverfejl");
+        toast.error("Der skete en fejl..");
       } else {
-        toast.success("Besked sendt!");
+        Swal.fire({
+          icon: "success",
+          title: `Tak for din besked, ${data.name} !`,
+          text: "Vi vender tilbage hurtigst muligt.",
+        });
         reset();
       }
     } catch (error) {

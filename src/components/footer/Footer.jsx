@@ -1,14 +1,19 @@
+import { AiOutlineFacebook } from "react-icons/ai";
 import styles from "./footer.module.css";
 import logo from "/logo.png";
-import { RiFacebookBoxLine } from "react-icons/ri";
+import { RiFacebookBoxLine, RiInstagramFill } from "react-icons/ri";
+import { FaSquareFacebook } from "react-icons/fa6";
+import { SiInstagram } from "react-icons/si";
 
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <div className={styles.soMe}></div>
+      <div className={styles.soMe}>
+        <FaSquareFacebook size={50} />
+        <RiInstagramFill size={50} />
+      </div>
       <div>
         <img src={logo} alt='logo' />
-        <RiFacebookBoxLine size={30} color='#ced3cd' />
         <h5>Gittes Glamping</h5>
       </div>
     </footer>

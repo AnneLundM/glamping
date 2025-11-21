@@ -1,2 +1,64 @@
 .navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 100;
+}
+
+.burger {
+  display: none;
+  z-index: 200;
+}
+
+.menu {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 40px;
+    display: block;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+  }
+  .burger {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    inset: 0;
+    background-color: #829b97;
+    z-index: 150;
+    font-size: 1.5rem;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .menu li {
+    margin: 1rem 0;
+  }
 }
