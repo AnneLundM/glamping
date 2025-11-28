@@ -1,3 +1,4 @@
+// Ved at gemme url'en i en variabel, bliver vedligehold af projektet nemmere, fordi vi ikke skal skrive den flere gange.
 const apiUrl = "https://glamping-rqu9j.ondigitalocean.app";
 
 // Get activities
@@ -24,14 +25,12 @@ export const staysLoader = async () => {
   return data.data;
 };
 
-// Get stay by Id
+// Get stay by Id (henter ophold ud fra id vha hooken 'useParams')
 export const stayDetailsLoader = async ({ params }) => {
   const res = await fetch(`${apiUrl}/stay/${params.id}`);
-
   if (!res.ok) {
     throw new Response("Ophold ikke fundet", { status: 404 });
   }
-
   const data = await res.json();
   return data.data[0];
 };

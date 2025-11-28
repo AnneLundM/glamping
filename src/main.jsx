@@ -4,7 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import routes from "./Routes";
 import "./App.css";
 
-/* Browserrouter skal være 'container' for App (altså hele projektet) 
+/* RouterProvider skal være 'container' for  hele projektet.
 Den fungerer som en såkaldt 'provider' der sørger for at renderer 
 forskelligt indhold (komponenter) baseret på url'en.
 */

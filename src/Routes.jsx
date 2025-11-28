@@ -22,6 +22,7 @@ import Loading from "./components/loading/Loading";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
+    /* 'hydrateFallbackElement' er en prop til vores routes, der viser en Loading-animation imens vi henter data via vores loaders */
     <Route element={<AppLayout />} hydrateFallbackElement={<Loading />}>
       <Route
         index
@@ -48,6 +49,7 @@ const routes = createBrowserRouter(
       />
       <Route path='contact' element={<Contact />} />
       <Route path='mylist' element={<MyList />} />
+      {/* Rute der ikke matcher nogen af de ovenstående og viser et 'Not found' element (Godt for brugeroplevelsen) */}
       <Route path='*' element={<NotFound />} />
     </Route>
   )
