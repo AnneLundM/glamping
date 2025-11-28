@@ -1,18 +1,34 @@
 .infoSection {
   background-color: #33626c;
-  padding: 100px 10px;
+  padding-top: 80px;
+  padding-bottom: 30px;
   border-radius: 20px 0;
+  transform: translateY(-20px);
   position: relative;
-  top: -20px;
+  z-index: 2;
+
+  .content {
+    max-width: 300px;
+    margin: 0 auto;
+
+    ul {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    h3 {
+      font-size: 32px;
+      margin: 20px 0;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
 
   h2 {
     margin: 20px 0;
     font-size: 64px;
-  }
-
-  h3 {
-    font-size: 68px;
-    font-weight: 800;
   }
 
   p {
@@ -24,5 +40,19 @@
     width: 200px;
     height: 200px;
     margin-bottom: 20px;
+  }
+}
+
+.liked {
+  font-size: 30px;
+}
+
+@media (min-width: 768px) {
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

@@ -1,6 +1,6 @@
 import Button from "../button/Button";
 import styles from "./pageHeader.module.css";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const PageHeader = ({ logo, titleOne, titleTwo, button, bgImg }) => {
   const navigate = useNavigate();

@@ -5,7 +5,6 @@
   font-family: "Zen Loop", cursive;
 }
 
-/* Aktivitetens billede */
 .activity img {
   width: 100%;
   object-fit: cover;
@@ -13,7 +12,6 @@
   margin: 0 auto;
 }
 
-/* Titel-området */
 .activity figcaption {
   background-color: #c5b496;
   padding: 20px 0;
@@ -24,7 +22,6 @@
   bottom: -50px;
 }
 
-/* Tekster */
 .title {
   font-size: 64px;
 }
@@ -38,13 +35,11 @@
   justify-content: space-between;
 }
 
-/* Beskrivelse */
 .description {
   margin-top: 35px;
   font-size: 25px;
 }
 
-/* Info-sektionen */
 .infoSection {
   background-color: #33626c;
   padding: 30px;
@@ -60,7 +55,6 @@
   text-align: start;
 }
 
-/* Læs mere-knappen */
 .infoSection button {
   background: none;
   color: white;

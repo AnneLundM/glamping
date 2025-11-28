@@ -5,12 +5,32 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  /* outline: 1px solid red; */
+}
+
+.theme-light {
+  --color-bg: #ffffffd2;
+  --color-text: #000;
+  --text-bg: #bbd7dd;
+  --body-bg: #ced3cd;
+  --button-bg: #d7fff8;
+  --title-bg: #fff3de;
+}
+
+.theme-dark {
+  --color-bg: #111111a1;
+  --color-text: #eee;
+  --text-bg: #33626c;
+  --body-bg: #ced3cd;
+  --button-bg: #829b97;
+  --title-bg: #c5b496;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding-bottom: 50px;
 }
 
 .app {
@@ -43,4 +63,92 @@ h5 {
 
 #root {
   text-align: center;
+}
+
+article {
+  position: relative;
+}
+
+.infoSectionNoPosition {
+  background-color: #33626c;
+  padding: 30px 10px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  h2 {
+    margin: 20px 0;
+    font-size: 40px;
+    line-height: normal;
+  }
+
+  img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  button {
+    padding: 20px 0;
+  }
+}
+
+.darkBluePage {
+  background-color: #33626c;
+}
+
+.my-popup {
+  border-radius: 20px;
+  padding: 30px;
+  background: #33626c;
+}
+
+.my-title {
+  font-size: 2rem;
+  font-family: "Zen Loop", cursive;
+  color: white;
+  font-weight: 100;
+}
+
+.my-text {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 100;
+}
+
+.my-confirm-btn {
+  background: #829b97 !important;
+  color: white !important;
+  padding: 10px 25px;
+  border-radius: 6px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 20px;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    gap: 1rem;
+    padding: 50px;
+  }
+
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

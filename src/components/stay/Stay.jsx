@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../button/Button";
 import styles from "./stay.module.css";
 
 const Stay = ({ stay }) => {
-  console.log(stay);
+  const navigate = useNavigate();
   return (
     <figure className={styles.stay}>
       <figcaption>
@@ -12,7 +13,10 @@ const Stay = ({ stay }) => {
       </figcaption>
       <img src={stay.image} alt={stay.title} />
       <div>
-        <Button buttonText='Læs mere' />
+        <Button
+          buttonText='Læs mere'
+          onClick={() => navigate(`/stay/${stay._id}`)}
+        />
       </div>
     </figure>
   );

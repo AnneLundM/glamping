@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 import styles from "./navigation.module.css";
 import { useState } from "react";
 import Hamburger from "hamburger-react";

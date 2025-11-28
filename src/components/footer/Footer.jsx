@@ -1,9 +1,7 @@
-import { AiOutlineFacebook } from "react-icons/ai";
 import styles from "./footer.module.css";
 import logo from "/logo.png";
-import { RiFacebookBoxLine, RiInstagramFill } from "react-icons/ri";
+import { RiInstagramFill } from "react-icons/ri";
 import { FaSquareFacebook } from "react-icons/fa6";
-import { SiInstagram } from "react-icons/si";
 
 const Footer = () => {
   return (
