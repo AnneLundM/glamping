@@ -20,7 +20,7 @@ const Activity = ({ activity }) => {
     setLiked((prevLike) =>
       isLiked
         ? prevLike.filter((li) => li !== activity._id)
-        : [...prevLike, activity]
+        : [...prevLike, activity._id]
     );
   };
 

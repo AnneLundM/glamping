@@ -34,3 +34,11 @@ export const stayDetailsLoader = async ({ params }) => {
   const data = await res.json();
   return data.data[0];
 };
+
+// Get activity by Id (genbruges fx i MyList til at hente fulde data ud fra et gemt id)
+export const fetchActivityById = async (id) => {
+  const res = await fetch(`${apiUrl}/activity/${id}`);
+  if (!res.ok) throw new Error("Aktivitet ikke fundet");
+  const data = await res.json();
+  return data.data[0];
+};

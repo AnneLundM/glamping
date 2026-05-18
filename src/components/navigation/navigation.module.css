@@ -2,7 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
   z-index: 100;
 }
 
@@ -61,4 +64,25 @@
   .menu li {
     margin: 1rem 0;
   }
+}
+
+@media (min-width: 768px) {
+  .logo {
+    width: 40px;
+    display: block;
+  }
+
+  .burger {
+    display: none;
+  }
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5em;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
 }
