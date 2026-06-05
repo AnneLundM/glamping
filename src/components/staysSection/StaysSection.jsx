@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Stay from "../stay/Stay";
 import { useLoaderData } from "react-router";
 
@@ -8,7 +7,7 @@ const StaysSection = () => {
   return (
     <section className='container'>
       {stays.map((stay) => (
-        <Stay stay={stay} key={stay._id} />
+        <Stay stay={stay} key={stay.id} />
       ))}
     </section>
   );

@@ -13,12 +13,14 @@ import {
   reviewsLoader,
   stayDetailsLoader,
   staysLoader,
+  backofficeLoader,
 } from "./loaders/DataLoaders";
 import ErrorElement from "./components/feedbackElements/ErrorElement";
 import Contact from "./pages/Contact";
 import MyList from "./pages/MyList";
 import NotFound from "./pages/404";
 import Loading from "./components/loading/Loading";
+import Backoffice from "./pages/backoffice/Backoffice";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -47,12 +49,19 @@ const routes = createBrowserRouter(
         element={<StayDetails />}
         loader={stayDetailsLoader}
       />
+      <Route
+        path='backoffice'
+        element={<Backoffice />}
+        loader={backofficeLoader}
+        errorElement={<ErrorElement />}>
+ 
+      </Route>
       <Route path='contact' element={<Contact />} />
       <Route path='mylist' element={<MyList />} />
       {/* Rute der ikke matcher nogen af de ovenstående og viser et 'Not found' element (Godt for brugeroplevelsen) */}
       <Route path='*' element={<NotFound />} />
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 export default routes;

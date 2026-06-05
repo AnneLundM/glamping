@@ -29,7 +29,7 @@ const ActivitiesSection = () => {
   return (
     <section className='container'>
       {activities.map((activity) => (
-        <Activity activity={activity} key={activity._id} />
+        <Activity activity={activity} key={activity.id} />
       ))}
     </section>
   );
