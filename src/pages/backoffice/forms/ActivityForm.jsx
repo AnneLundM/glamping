@@ -4,14 +4,20 @@ import { useForm } from "react-hook-form";
 // npm i @hookform/resolvers/yup
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useNavigate} from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./form.module.css";
 import Button from "../../../components/button/Button";
 import { useFetchActivities } from "../hooks/useFetchActivities";
 
-const ActivityForm = () => {
-  const { createActivity } = useFetchActivities();
+// activity: hvis den er sat, er vi i "rediger"-tilstand
+// onDone: kaldes når en redigering er færdig (eller annulleres), så forælderen kan rydde op
+const ActivityForm = ({ activity = null, onDone }) => {
+  const { createActivity, updateActivity } = useFetchActivities();
   const navigate = useNavigate();
+
+  // Er vi ved at redigere en eksisterende aktivitet? Det er vi hvis activity ikke er null
+  const isEdit = Boolean(activity);
 
   // Yup valideringsskema - reglerne for hvad brugeren skal udfylde.
   const schema = yup.object().shape({
@@ -31,8 +37,34 @@ const ActivityForm = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: yupResolver(schema) });
+
+  // Når vi skifter til at redigere en aktivitet, udfylder vi formularen med dens data.
+  // activity.time er gemt som "fraTid-tilTid", så vi splitter den op igen.
+  useEffect(() => {
+    if (activity) {
+      const [fromTime = "", toTime = ""] = (activity.time || "").split("-");
+      reset({
+        title: activity.title || "",
+        description: activity.description || "",
+        date: activity.date || "",
+        fromTime,
+        toTime,
+        image: activity.image || "",
+      });
+    } else {
+      reset({
+        title: "",
+        description: "",
+        date: "",
+        fromTime: "",
+        toTime: "",
+        image: "",
+      });
+    }
+  }, [activity, reset]);
 
   // Live-preview af billedet, mens brugeren skriver url'en
   const imageUrl = watch("image");
@@ -40,29 +72,33 @@ const ActivityForm = () => {
   // react-hook-form giver os de validerede felter i "data"
   const onSubmit = async (data) => {
     // Vi sender et almindeligt objekt som JSON (ikke FormData), da billedet nu er en url-streng.
-    const activity = {
+    const activityData = {
       title: data.title,
       description: data.description,
       date: data.date,
       time: `${data.fromTime}-${data.toTime}`,
-      image: data.image
+      image: data.image,
     };
 
-    console.log(activity)
-
     try {
-      const res = await createActivity(activity);
-      if (res) {
-        navigate("/activities");
+      if (isEdit) {
+        // Ved opdatering sender vi _id'et i URL'en, så serveren ved hvilken aktivitet der skal opdateres
+        await updateActivity(activity._id, activityData);
+        onDone?.();
+      } else {
+        const res = await createActivity(activityData);
+        if (res) {
+          navigate("/activities");
+        }
       }
     } catch (err) {
-      console.error("Fejl ved oprettelse af aktivitet:", err);
+      console.error("Fejl ved gem af aktivitet:", err);
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <h2>Tilføj aktivitet</h2>
+      <h2>{isEdit ? "Rediger aktivitet" : "Tilføj aktivitet"}</h2>
       <div>
         {/*
         Når htmlFor-attributten på en <label> matcher id-attributten på et <input>-element, oprettes der en forbindelse mellem dem.
@@ -120,9 +156,23 @@ const ActivityForm = () => {
 
       <Button
         type='submit'
-        buttonText={isSubmitting ? "Gemmer..." : "Tilføj aktivitet"}
+        buttonText={
+          isSubmitting
+            ? "Gemmer..."
+            : isEdit
+              ? "Gem ændringer"
+              : "Tilføj aktivitet"
+        }
         background='green'
       />
+      {isEdit && (
+        <Button
+          type='button'
+          buttonText='Annuller'
+          variant='small'
+          onClick={() => onDone?.()}
+        />
+      )}
     </form>
   );
 };

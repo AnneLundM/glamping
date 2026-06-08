@@ -26,7 +26,39 @@ const useFetchActivities = () => {
     }
   };
 
-  // UPDATE --> Hvordan skal den se ud?
+  // UPDATE
+  // OPDATER AKTIVITET
+  // Vi sender et almindeligt objekt som JSON (ligesom createActivity).
+  // VIGTIGT: id'et sendes i URL'en (ligesom DELETE), så serveren ved hvilken aktivitet der opdateres.
+  const updateActivity = async (id, activity) => {
+    try {
+      const response = await fetch(`${apiUrl}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(activity),
+      });
+      if (!response.ok) {
+        throw new Error("Fejl ved opdatering af aktivitet");
+      }
+
+      const result = await response.json();
+
+      // Hent listen igen, så ændringen vises med det samme
+      revalidator.revalidate();
+      Swal.fire({
+        icon: "success",
+        title: "Opdateret",
+        text: "Aktiviteten er opdateret.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      return result;
+    } catch (err) {
+      console.error("Fejl ved opdatering:", err);
+      throw err;
+    }
+  };
 
   // DELETE
   const deleteActivity = async (id) => {
@@ -64,7 +96,8 @@ const useFetchActivities = () => {
   return {
     deleteActivity,
     createActivity,
+    updateActivity,
   };
-};
+};;
 
 export { useFetchActivities };
