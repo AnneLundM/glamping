@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 // npm i @hookform/resolvers/yup
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./form.module.css";
 import Button from "../../../components/button/Button";
@@ -15,28 +15,35 @@ import { useFetchActivities } from "../hooks/useFetchActivities";
 const ActivityForm = ({ activity = null, onDone }) => {
   const { createActivity, updateActivity } = useFetchActivities();
   const navigate = useNavigate();
+   const [selectedFile, setSelectedFile] = useState(null);
+   const [image, setImage] = useState(null);
 
   // Er vi ved at redigere en eksisterende aktivitet? Det er vi hvis activity ikke er null
   const isEdit = Boolean(activity);
 
+  // Forhåndsvis billede
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      const objUrl = window.URL.createObjectURL(file);
+      setImage(objUrl);
+    }
+  };
+
   // Yup valideringsskema - reglerne for hvad brugeren skal udfylde.
+  // Billedet håndteres som en fil (selectedFile), ikke via react-hook-form, så det er ikke i skemaet.
   const schema = yup.object().shape({
     title: yup.string().required("Titel er påkrævet"),
     description: yup.string().required("Beskrivelse er påkrævet"),
     date: yup.string().required("Dato er påkrævet"),
     fromTime: yup.string().required("Starttid er påkrævet"),
     toTime: yup.string().required("Sluttid er påkrævet"),
-    // Billedet er en URL-streng (valgfrit). Tom værdi → undefined, så url-tjekket springes over.
-    image: yup
-      .string()
-      .transform((value) => (value === "" ? undefined : value))
-      .url("Indtast en gyldig URL"),
   });
 
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: yupResolver(schema) });
@@ -52,8 +59,10 @@ const ActivityForm = ({ activity = null, onDone }) => {
         date: activity.date || "",
         fromTime,
         toTime,
-        image: activity.image || "",
       });
+      // Vis det eksisterende billede som forhåndsvisning
+      setImage(activity.image || null);
+      setSelectedFile(null);
     } else {
       reset({
         title: "",
@@ -61,38 +70,42 @@ const ActivityForm = ({ activity = null, onDone }) => {
         date: "",
         fromTime: "",
         toTime: "",
-        image: "",
       });
+      setImage(null);
+      setSelectedFile(null);
     }
   }, [activity, reset]);
 
-  // Live-preview af billedet, mens brugeren skriver url'en
-  const imageUrl = watch("image");
-
-  // react-hook-form giver os de validerede felter i "data"
+  // react-hook-form giver os de validerede felter i "data" (ikke et event).
+  // Vi bygger en FormData, så vi kan sende både tekstfelter og en billedfil.
   const onSubmit = async (data) => {
-    // Vi sender et almindeligt objekt som JSON (ikke FormData), da billedet nu er en url-streng.
-    const activityData = {
-      title: data.title,
-      description: data.description,
-      date: data.date,
-      time: `${data.fromTime}-${data.toTime}`,
-      image: data.image,
-    };
+    const activityData = new FormData();
+    activityData.append("id", activity._id);
+    activityData.append("title", data.title);
+    activityData.append("description", data.description);
+    activityData.append("date", data.date);
+    // De to tidsfelter gemmes samlet som "fraTid-tilTid"
+    activityData.append("time", `${data.fromTime}-${data.toTime}`);
+
+    // Tilføj billedfilen, hvis brugeren har valgt en
+    if (selectedFile) {
+      activityData.append("file", selectedFile);
+    }
 
     try {
-      if (isEdit) {
-        // Ved opdatering sender vi _id'et i URL'en, så serveren ved hvilken aktivitet der skal opdateres
-        await updateActivity(activity._id, activityData);
+      const response = isEdit
+        ? await updateActivity(activityData)
+        : await createActivity(activityData);
+
+      if (response) {
+        reset();
+        setSelectedFile(null);
+        setImage(null);
         onDone?.();
-      } else {
-        const res = await createActivity(activityData);
-        if (res) {
-          navigate("/activities");
-        }
+        navigate("/backoffice");
       }
-    } catch (err) {
-      console.error("Fejl ved gem af aktivitet:", err);
+    } catch (error) {
+      console.error("Fejl ved håndtering af aktivitet:", error);
     }
   };
 
@@ -141,17 +154,14 @@ const ActivityForm = ({ activity = null, onDone }) => {
       </div>
 
       <div>
-        <label htmlFor='image'>Billede-URL (valgfrit):</label>
+        <label htmlFor='image'>Billede:</label>
         <input
           id='image'
-          type='url'
-          placeholder='https://...'
-          {...register("image")}
+          type='file'
+          accept='image/*'
+          onChange={handleImageChange}
         />
-        {errors.image && (
-          <span className={styles.error}>{errors.image.message}</span>
-        )}
-        {imageUrl && <img className={styles.previewImage} src={imageUrl} />}
+        {image && <img className={styles.previewImage} src={image} />}
       </div>
 
       <Button

@@ -7,7 +7,7 @@ const StaysSection = () => {
   return (
     <section className='container'>
       {stays.map((stay) => (
-        <Stay stay={stay} key={stay.id} />
+        <Stay stay={stay} key={stay._id} />
       ))}
     </section>
   );

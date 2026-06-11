@@ -7,7 +7,7 @@ export const activitiesLoader = async () => {
   const res = await fetch(`${localApiUrl}/activities`);
   if (!res.ok) throw new Response("Fejl ved hentning", { status: res.status });
   const data = await res.json();
-  return data;
+  return data.data;
 };
 
 // Get reviews
@@ -15,7 +15,7 @@ export const reviewsLoader = async () => {
   const res = await fetch(`${localApiUrl}/reviews`);
   if (!res.ok) throw new Response("Fejl ved hentning", { status: res.status });
   const data = await res.json();
-  return data;
+  return data.data;
 };
 
 // Get stays
@@ -23,7 +23,7 @@ export const staysLoader = async () => {
   const res = await fetch(`${localApiUrl}/stays`);
   if (!res.ok) throw new Response("Fejl ved hentning", { status: res.status });
   const data = await res.json();
-  return data;
+  return data.data;
 };
 
 // Get stay by Id (henter ophold ud fra id vha hooken 'useParams')

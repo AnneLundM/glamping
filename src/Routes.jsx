@@ -21,6 +21,8 @@ import MyList from "./pages/MyList";
 import NotFound from "./pages/404";
 import Loading from "./components/loading/Loading";
 import Backoffice from "./pages/backoffice/Backoffice";
+import RequireAuth from "./components/RequireAuth";
+import { Login } from "./pages/login/Login";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -49,13 +51,19 @@ const routes = createBrowserRouter(
         element={<StayDetails />}
         loader={stayDetailsLoader}
       />
+
+      <Route path='login' element={<Login />} />
+
       <Route
         path='backoffice'
-        element={<Backoffice />}
+        element={
+          <RequireAuth>
+            <Backoffice />
+          </RequireAuth>
+        }
         loader={backofficeLoader}
-        errorElement={<ErrorElement />}>
- 
-      </Route>
+        errorElement={<ErrorElement />}
+      />
       <Route path='contact' element={<Contact />} />
       <Route path='mylist' element={<MyList />} />
       {/* Rute der ikke matcher nogen af de ovenstående og viser et 'Not found' element (Godt for brugeroplevelsen) */}

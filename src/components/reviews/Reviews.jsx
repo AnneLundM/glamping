@@ -7,7 +7,7 @@ const Reviews = () => {
   return (
     <section className='container'>
       {reviews.map((review) => (
-        <Review review={review} key={review.id} />
+        <Review review={review} key={review._id} />
       ))}
     </section>
   );

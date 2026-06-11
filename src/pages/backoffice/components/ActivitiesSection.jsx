@@ -11,14 +11,14 @@ const ActivitiesSection = ({ activities }) => {
     <section className={styles.section}>
       <div className={styles.sectionHeader}>
         <h2>Aktiviteter</h2>
-        <span className={styles.count}>({activities.length})</span>
+        <span className={styles.count}>({activities.data.length})</span>
       </div>
 
-      {activities.length === 0 ? (
+      {activities.data.length === 0 ? (
         <p className={styles.empty}>Ingen aktiviteter endnu.</p>
       ) : (
         <ul className={styles.list}>
-          {activities.map((activity) => (
+          {activities.data.map((activity) => (
             <ActivityItem
               key={activity._id}
               activity={activity}

@@ -6,19 +6,23 @@ const useFetchActivities = () => {
   const revalidator = useRevalidator();
 
   // CREATE
+  // `activity` er et FormData-objekt. Vi sætter IKKE Content-Type selv -
+  // browseren sætter automatisk "multipart/form-data" med den rigtige boundary.
   const createActivity = async (activity) => {
     try {
       const response = await fetch(`${apiUrl}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(activity),
+        body: activity,
       });
 
       if (!response.ok) {
-        throw new Error("Fejl ved oprettelse af ophold");
+        throw new Error("Fejl ved oprettelse af aktivitet");
       }
 
       const result = await response.json();
+
+      // Hent listen igen, så den nye aktivitet vises med det samme
+      revalidator.revalidate();
       return result;
     } catch (err) {
       console.error("Fejl ved oprettelse:", err);
@@ -30,13 +34,13 @@ const useFetchActivities = () => {
   // OPDATER AKTIVITET
   // Vi sender et almindeligt objekt som JSON (ligesom createActivity).
   // VIGTIGT: id'et sendes i URL'en (ligesom DELETE), så serveren ved hvilken aktivitet der opdateres.
-  const updateActivity = async (id, activity) => {
+  const updateActivity = async (activity) => {
     try {
-      const response = await fetch(`${apiUrl}/${id}`, {
+      const response = await fetch(`${apiUrl}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(activity),
+        body: activity,
       });
+
       if (!response.ok) {
         throw new Error("Fejl ved opdatering af aktivitet");
       }
